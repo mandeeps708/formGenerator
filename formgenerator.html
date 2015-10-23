@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Form Generator</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<script src="js/jquery1.9.min.js"></script>
+
+		<style>
+#div1 {width:600px;height:70px;padding:10px;border:1px solid #aaaaaa;}
+</style>
+<script>
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+}
+</script>
+		<script>
+			function update()
+			{
+			   // var x = $('#mycode').val();
+			   // alert( $('#mycode').attr('value') );
+			   // console.log(x);
+			   // alert(this.id);
+
+			   selectedInput= $('#selectInput').attr('id');
+			   console.log(selectedInput);
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="input-group container width">
+				<form action="{% url 'matrix' %}" method="post">
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12 left">
+							<input class="input-lg" type="text" placeholder="left" id="drag1" draggable="true" ondragstart="drag(event)">
+
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12right">
+							<input class="input-lg" type="text" placeholder="right" id="drag2" draggable="true" ondragstart="drag(event)">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<br>
+
+
+		<!-- 
+		<form name="inputForm">
+			<h3>Choose form element</h3>
+			<select id="selectInput">
+				<option id="text">Text field</option>
+				<option id="radio">Radio Button</option>
+				<input onclick="update();" type="button" value="Update page">
+				<br>
+				<textarea id="mycode"></textarea>
+				<br>
+				<iframe id="display"></iframe>
+			</select>
+		</form> -->
+	</body>
+</html>
