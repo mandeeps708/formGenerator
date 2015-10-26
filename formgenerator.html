@@ -7,12 +7,13 @@
             href="css/bootstrap.min.css">
 		<script src="js/jquery1.9.min.js"></script>
 
+        <script src="js/bootstrap.min.js"></script>
 		<style>
             #div1 {
-                width:600px;
-                height:70px;
+                height:45em;
                 padding:10px;
                 border:1px solid #aaaaaa;
+                background-color:#eee;
             }
         </style>
         <script>
@@ -42,20 +43,32 @@
 			   selectedInput= $('#selectInput').attr('id');
 			   console.log(selectedInput);
 			}
-		</script>
+        </script>
 	</head>
 
 	<body>
 		<div class="container">
+
 			<div class="input-group container width">
 				<form action="{% url 'matrix' %}" method="post">
 					<div class="row">
 						<div class="col-md-6 col-sm-6 col-xs-12 left">
+                            <h3>Drag the following 3 in the grey box on the right and Click on Convert.</h3>
+                            <p id="text-field" name="text"  draggable="true" ondragstart="drag(event)">Text field</p>
+                            <p id="radio" name="radio"  draggable="true" ondragstart="drag(event)">Radio buttons</p>
+                            <p id="submitbutton" name="submit" draggable="true" ondragstart="drag(event)">Submit Button</p>
 							<input class="input-lg" type="text" placeholder="left" id="drag1" draggable="true" ondragstart="drag(event)">
+                            <!-- Button trigger modal -->
+                            <button id="clickme" type="button" class="btn btn-primary btn-lg" 
+                                data-toggle="modal" data-target="#myModal">
+                                 Modal here! 
+                              </button>
+                              <a id="convert" class="btn btn-success">Convert</a>
 						</div>
 						
-						<div class="col-md-6 col-sm-6 col-xs-12right">
-							<input class="input-lg" type="text" placeholder="right" id="drag2" draggable="true" ondragstart="drag(event)">
+						<div class="col-md-6 col-sm-6 col-xs-12 right">
+                            <div id="div1" ondrop="drop(event)" 
+                                ondragover="allowDrop(event)"></div>
 						</div>
 					</div>
 				</form>
@@ -63,9 +76,30 @@
 		</div>
 
 
-<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 <br>
 
+  <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+                aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" 
+                              aria-label="Close"><span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h3>hi modal here!</h3>
+                            <p>Although I don't do anything!</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+          </div>
 
 		<!-- 
 		<form name="inputForm">
@@ -80,5 +114,22 @@
 				<iframe id="display"></iframe>
 			</select>
 		</form> -->
+
+        <script>
+            $('#submitbutton').click(function(){});
+        </script>
+        <script>
+            $('#convert').click(function(){
+
+                a=$('div#div1 > p').replaceWith(function(){return $("<input />");});type=a.attr('name');$('div#div1 > input').attr('type', type);
+            });
+        </script>
+        <script>
+            console.log('why not working');
+            a=$('p .inside-div').click(function(){console.log('finally working');});
+            console.log('a=',a)
+            $('p.inside-div').click(function(){console.log('inside'); $('#clickme').click();});
+
+        </script>
 	</body>
 </html>
